@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #1A1A1A;
+  color: #FFFFFF;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1A1A1A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C9A870;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A38A5C;
+}
+
+/* Custom theme configuration using CSS variables */
+@theme {
+  --color-primary: #C9A870;
+  --color-primary-dark: #A38A5C;
+  --color-primary-light: #E5D4B3;
+  --color-dark: #1A1A1A;
+  --color-dark-secondary: #2A2A2A;
+  --color-dark-tertiary: #0F0F0F;
+  --color-gold: #C9A870;
+  
+  --font-display: 'Playfair Display', Georgia, serif;
+}
+
+/* Custom Utility Classes */
+@utility text-gradient {
+  background: linear-gradient(135deg, #C9A870 0%, #E5D4B3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility bg-gradient-gold {
+  background: linear-gradient(135deg, #C9A870 0%, #E5D4B3 100%);
+}
+
+@utility perspective-1000 {
+  perspective: 1000px;
+}
