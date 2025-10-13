@@ -40,7 +40,7 @@ body {
 }
 
 /* Custom theme configuration using CSS variables */
-@theme {
+:root {
   --color-primary: #C9A870;
   --color-primary-dark: #A38A5C;
   --color-primary-light: #E5D4B3;
@@ -53,17 +53,17 @@ body {
 }
 
 /* Custom Utility Classes */
-@utility text-gradient {
+.text-gradient {
   background: linear-gradient(135deg, #C9A870 0%, #E5D4B3 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-@utility bg-gradient-gold {
+.bg-gradient-gold {
   background: linear-gradient(135deg, #C9A870 0%, #E5D4B3 100%);
 }
 
-@utility perspective-1000 {
+.perspective-1000 {
   perspective: 1000px;
 }
