@@ -1,40 +1,49 @@
-import React, { useRef } from 'react'
-import { useGSAP } from '@gsap/react'
+import React, { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { contactInfo } from '../../data/contactInfo'
 
-gsap.registerPlugin(ScrollTrigger, useGSAP)
+gsap.registerPlugin(ScrollTrigger)
 
 const Contact = () => {
   const sectionRef = useRef(null)
   const titleRef = useRef(null)
   const contentRef = useRef(null)
 
-  useGSAP(() => {
-    gsap.from(titleRef.current, {
-      scrollTrigger: {
-        trigger: titleRef.current,
-        start: 'top 80%',
-        end: 'top 50%',
-        scrub: 1
-      },
-      y: 80,
-      opacity: 0
-    })
+  useEffect(() => {
+    if (!sectionRef.current) return
 
-    gsap.from(contentRef.current.children, {
-      scrollTrigger: {
-        trigger: contentRef.current,
-        start: 'top 75%',
-        end: 'top 45%',
-        scrub: 1
-      },
-      y: 60,
-      opacity: 0,
-      stagger: 0.2
-    })
-  }, { scope: sectionRef })
+    const ctx = gsap.context(() => {
+      if (titleRef.current) {
+        gsap.from(titleRef.current, {
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: 'top 80%',
+            end: 'top 50%',
+            scrub: 1
+          },
+          y: 80,
+          opacity: 0
+        })
+      }
+
+      if (contentRef.current) {
+        gsap.from(contentRef.current.children, {
+          scrollTrigger: {
+            trigger: contentRef.current,
+            start: 'top 75%',
+            end: 'top 45%',
+            scrub: 1
+          },
+          y: 60,
+          opacity: 0,
+          stagger: 0.2
+        })
+      }
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
 
   const contactMethods = [
     {

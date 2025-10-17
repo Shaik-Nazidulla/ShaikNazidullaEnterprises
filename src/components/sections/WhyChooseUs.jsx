@@ -1,9 +1,8 @@
-import React, { useEffect, useRef } from 'react'
-import { useGSAP } from '@gsap/react'
+import React, { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-gsap.registerPlugin(ScrollTrigger, useGSAP)
+gsap.registerPlugin(ScrollTrigger)
 
 const WhyChooseUs = () => {
   const sectionRef = useRef(null)
@@ -44,33 +43,41 @@ const WhyChooseUs = () => {
   ]
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(titleRef.current, {
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: 'top 80%',
-          end: 'top 50%',
-          scrub: 1
-        },
-        y: 80,
-        opacity: 0
-      })
+    if (!sectionRef.current) return
 
-      const items = itemsRef.current.children
-      
-      gsap.from(items, {
-        scrollTrigger: {
-          trigger: itemsRef.current,
-          start: 'top 75%',
-          end: 'top 40%',
-          scrub: 1
-        },
-        x: (index) => index % 2 === 0 ? -100 : 100,
-        opacity: 0,
-        stagger: 0.15
-      })
-    })
-  },  { scope: sectionRef })
+    const ctx = gsap.context(() => {
+      if (titleRef.current) {
+        gsap.from(titleRef.current, {
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: 'top 80%',
+            end: 'top 50%',
+            scrub: 1
+          },
+          y: 80,
+          opacity: 0
+        })
+      }
+
+      if (itemsRef.current) {
+        const items = itemsRef.current.children
+        
+        gsap.from(items, {
+          scrollTrigger: {
+            trigger: itemsRef.current,
+            start: 'top 75%',
+            end: 'top 40%',
+            scrub: 1
+          },
+          x: (index) => index % 2 === 0 ? -100 : 100,
+          opacity: 0,
+          stagger: 0.15
+        })
+      }
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
     <section ref={sectionRef} className="py-20 md:py-32 bg-dark relative overflow-hidden">
@@ -109,7 +116,6 @@ const WhyChooseUs = () => {
                 </div>
               </div>
 
-              {/* Animated line */}
               <div className="absolute bottom-0 left-0 w-full h-0.5 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
             </div>
           ))}

@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from 'react'
-import { useGSAP } from '@gsap/react'
+import React, { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { services } from '../../data/services'
 
-gsap.registerPlugin(ScrollTrigger, useGSAP)
+gsap.registerPlugin(ScrollTrigger)
 
 const Services = () => {
   const sectionRef = useRef(null)
@@ -12,38 +11,43 @@ const Services = () => {
   const cardsRef = useRef(null)
 
   useEffect(() => {
+    if (!sectionRef.current) return
+
     const ctx = gsap.context(() => {
-      // Title animation
-      gsap.from(titleRef.current, {
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: 'top 80%',
-          end: 'top 50%',
-          scrub: 1
-        },
-        y: 80,
-        opacity: 0
-      })
+      if (titleRef.current) {
+        gsap.from(titleRef.current, {
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: 'top 80%',
+            end: 'top 50%',
+            scrub: 1
+          },
+          y: 80,
+          opacity: 0
+        })
+      }
 
-      // Service cards animation with rotation
-      const cards = cardsRef.current.children
-      
-      gsap.from(cards, {
-        scrollTrigger: {
-          trigger: cardsRef.current,
-          start: 'top 75%',
-          end: 'top 35%',
-          scrub: 1
-        },
-        y: 120,
-        opacity: 0,
-        rotationY: 45,
-        stagger: 0.2,
-        transformOrigin: 'center center'
-      })
+      if (cardsRef.current) {
+        const cards = cardsRef.current.children
+        
+        gsap.from(cards, {
+          scrollTrigger: {
+            trigger: cardsRef.current,
+            start: 'top 75%',
+            end: 'top 35%',
+            scrub: 1
+          },
+          y: 120,
+          opacity: 0,
+          rotationY: 45,
+          stagger: 0.2,
+          transformOrigin: 'center center'
+        })
+      }
+    }, sectionRef)
 
-    })
-  },  { scope: sectionRef })
+    return () => ctx.revert()
+  }, [])
 
   const getIcon = (iconName) => {
     const icons = {
@@ -65,11 +69,9 @@ const Services = () => {
 
   return (
     <section id="services" ref={sectionRef} className="py-20 md:py-32 bg-dark-secondary relative overflow-hidden">
-      {/* Background decoration */}
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
       
       <div className="container mx-auto px-6 relative z-10">
-        {/* Section Title */}
         <div ref={titleRef} className="text-center mb-16 md:mb-20">
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl mb-6">
             Our <span className="text-gradient">Services</span>
@@ -80,14 +82,12 @@ const Services = () => {
           </p>
         </div>
 
-        {/* Services Grid */}
         <div ref={cardsRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {services.map((service) => (
             <div 
               key={service.id}
               className="group relative bg-dark border border-primary/20 p-8 transition-all duration-500 hover:border-primary hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-3 perspective-1000"
             >
-              {/* Icon */}
               <div className="relative mb-6">
                 <div className="w-16 h-16 border-2 border-primary/30 rotate-45 flex items-center justify-center mx-auto group-hover:rotate-90 group-hover:border-primary transition-all duration-700">
                   <svg 
@@ -101,7 +101,6 @@ const Services = () => {
                 </div>
               </div>
 
-              {/* Content */}
               <h3 className="font-display text-xl md:text-2xl text-center text-primary mb-4 group-hover:text-primary-light transition-colors duration-300">
                 {service.title}
               </h3>
@@ -110,7 +109,6 @@ const Services = () => {
                 {service.description}
               </p>
 
-              {/* Features */}
               <ul className="space-y-2">
                 {service.features.map((feature, index) => (
                   <li key={index} className="text-xs text-gray-300 flex items-start">
@@ -122,7 +120,6 @@ const Services = () => {
                 ))}
               </ul>
 
-              {/* Decorative corners */}
               <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>

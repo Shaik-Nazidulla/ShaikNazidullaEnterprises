@@ -1,9 +1,8 @@
-import React, { useRef } from 'react'
-import { useGSAP } from '@gsap/react'
+import React, { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-gsap.registerPlugin(ScrollTrigger, useGSAP)
+gsap.registerPlugin(ScrollTrigger)
 
 const Hero = () => {
   const heroRef = useRef(null)
@@ -12,63 +11,78 @@ const Hero = () => {
   const ctaRef = useRef(null)
   const scrollIndicatorRef = useRef(null)
 
-  useGSAP(() => {
-    // Initial entrance animations
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-    
-    // Split title into lines for animation
-    const titleLines = titleRef.current.querySelectorAll('.title-line')
-    
-    tl.from(titleLines, {
-      y: 120,
-      opacity: 0,
-      rotationX: -90,
-      transformOrigin: 'top center',
-      duration: 1.2,
-      stagger: 0.2,
-      delay: 0.5
-    })
-    .from(subtitleRef.current, {
-      y: 50,
-      opacity: 0,
-      duration: 1,
-    }, '-=0.6')
-    .from(ctaRef.current, {
-      y: 30,
-      opacity: 0,
-      duration: 0.8,
-    }, '-=0.4')
-    .from(scrollIndicatorRef.current, {
-      opacity: 0,
-      y: -20,
-      duration: 0.6,
-    }, '-=0.4')
+  useEffect(() => {
+    if (!heroRef.current || !titleRef.current) return
 
-    // Parallax scroll effect on hero
-    gsap.to(heroRef.current, {
-      scrollTrigger: {
-        trigger: heroRef.current,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1.5
-      },
-      opacity: 0,
-      scale: 0.9,
-      y: -100
-    })
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+      
+      const titleLines = titleRef.current.querySelectorAll('.title-line')
+      
+      if (titleLines.length > 0) {
+        tl.from(titleLines, {
+          y: 120,
+          opacity: 0,
+          rotationX: -90,
+          transformOrigin: 'top center',
+          duration: 1.2,
+          stagger: 0.2,
+          delay: 0.5
+        })
+      }
 
-    // Scroll indicator fade out
-    gsap.to(scrollIndicatorRef.current, {
-      scrollTrigger: {
-        trigger: heroRef.current,
-        start: 'top top',
-        end: '20% top',
-        scrub: 1
-      },
-      opacity: 0,
-      y: -50
-    })
-  }, { scope: heroRef })
+      if (subtitleRef.current) {
+        tl.from(subtitleRef.current, {
+          y: 50,
+          opacity: 0,
+          duration: 1,
+        }, '-=0.6')
+      }
+
+      if (ctaRef.current) {
+        tl.from(ctaRef.current, {
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+        }, '-=0.4')
+      }
+
+      if (scrollIndicatorRef.current) {
+        tl.from(scrollIndicatorRef.current, {
+          opacity: 0,
+          y: -20,
+          duration: 0.6,
+        }, '-=0.4')
+      }
+
+      gsap.to(heroRef.current, {
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.5
+        },
+        opacity: 0,
+        scale: 0.9,
+        y: -100
+      })
+
+      if (scrollIndicatorRef.current) {
+        gsap.to(scrollIndicatorRef.current, {
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: '20% top',
+            scrub: 1
+          },
+          opacity: 0,
+          y: -50
+        })
+      }
+    }, heroRef)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
     <section 
@@ -76,10 +90,9 @@ const Hero = () => {
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-dark via-dark-secondary to-dark"
     >
-      {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-primary/10 rotate-45"></div>
       </div>
 
@@ -121,7 +134,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <div 
         ref={scrollIndicatorRef}
         className="absolute bottom-8 md:bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer"

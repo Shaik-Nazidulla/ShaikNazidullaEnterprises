@@ -1,9 +1,8 @@
-import React, { useEffect, useRef } from 'react'
-import { useGSAP } from '@gsap/react'
+import React, { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-gsap.registerPlugin(ScrollTrigger, useGSAP)
+gsap.registerPlugin(ScrollTrigger)
 
 const About = () => {
   const sectionRef = useRef(null)
@@ -19,56 +18,60 @@ const About = () => {
   ]
 
   useEffect(() => {
+    if (!sectionRef.current) return
+
     const ctx = gsap.context(() => {
-      // Title animation
-      gsap.from(titleRef.current, {
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: 'top 80%',
-          end: 'top 50%',
-          scrub: 1
-        },
-        y: 80,
-        opacity: 0
-      })
+      if (titleRef.current) {
+        gsap.from(titleRef.current, {
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: 'top 80%',
+            end: 'top 50%',
+            scrub: 1
+          },
+          y: 80,
+          opacity: 0
+        })
+      }
 
-      // Content animation
-      gsap.from(contentRef.current.children, {
-        scrollTrigger: {
-          trigger: contentRef.current,
-          start: 'top 75%',
-          end: 'top 45%',
-          scrub: 1
-        },
-        y: 60,
-        opacity: 0,
-        stagger: 0.2
-      })
+      if (contentRef.current) {
+        gsap.from(contentRef.current.children, {
+          scrollTrigger: {
+            trigger: contentRef.current,
+            start: 'top 75%',
+            end: 'top 45%',
+            scrub: 1
+          },
+          y: 60,
+          opacity: 0,
+          stagger: 0.2
+        })
+      }
 
-      // Stats animation
-      gsap.from(statsRef.current.children, {
-        scrollTrigger: {
-          trigger: statsRef.current,
-          start: 'top 80%',
-          end: 'top 50%',
-          scrub: 1
-        },
-        y: 80,
-        opacity: 0,
-        stagger: 0.15,
-        scale: 0.8
-      })
+      if (statsRef.current) {
+        gsap.from(statsRef.current.children, {
+          scrollTrigger: {
+            trigger: statsRef.current,
+            start: 'top 80%',
+            end: 'top 50%',
+            scrub: 1
+          },
+          y: 80,
+          opacity: 0,
+          stagger: 0.15,
+          scale: 0.8
+        })
+      }
+    }, sectionRef)
 
-    })
-  }, { scope: sectionRef })
+    return () => ctx.revert()
+  }, [])
 
   return (
     <section id="about" ref={sectionRef} className="py-20 md:py-32 bg-dark-secondary relative overflow-hidden">
-      {/* Background decoration */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
       
       <div className="container mx-auto px-6 relative z-10">
-        {/* Section Title */}
         <div ref={titleRef} className="text-center mb-16 md:mb-20">
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl mb-6">
             About <span className="text-gradient">Our Company</span>
@@ -76,7 +79,6 @@ const About = () => {
           <div className="w-24 h-1 bg-gradient-gold mx-auto"></div>
         </div>
 
-        {/* Content */}
         <div ref={contentRef} className="max-w-4xl mx-auto space-y-6 mb-16 md:mb-20">
           <p className="text-gray-300 text-base md:text-lg leading-relaxed text-center">
             Shaik Nazidulla Enterprises is your trusted partner for premium false ceiling materials. 
@@ -94,14 +96,12 @@ const About = () => {
           </p>
         </div>
 
-        {/* Stats Grid */}
         <div ref={statsRef} className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {stats.map((stat, index) => (
             <div 
               key={index}
               className="group relative bg-dark border border-primary/20 p-6 md:p-8 text-center transition-all duration-500 hover:border-primary hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2"
             >
-              {/* Decorative corner */}
               <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
