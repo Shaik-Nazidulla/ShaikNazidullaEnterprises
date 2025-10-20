@@ -1,3 +1,4 @@
+// nazidullaenterprises/src/hooks/useGsapAnimation.js
 import { useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'

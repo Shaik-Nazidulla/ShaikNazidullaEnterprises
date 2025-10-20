@@ -4,10 +4,44 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const whyChooseUsAnimation = (elements) => {
+  const { title, items } = elements
+
+  if (title) {
+    gsap.from(title, {
+      scrollTrigger: {
+        trigger: title,
+        start: 'top 80%',
+        end: 'top 50%',
+        scrub: 1
+      },
+      y: 80,
+      opacity: 0
+    })
+  }
+
+  if (items) {
+    const itemElements = items.children
+    
+    gsap.from(itemElements, {
+      scrollTrigger: {
+        trigger: items,
+        start: 'top 75%',
+        end: 'top 35%',
+        scrub: 1.2
+      },
+      x: (index) => index % 2 === 0 ? -100 : 100,
+      opacity: 0,
+      stagger: 0.12
+    })
+  }
+}
+
 const WhyChooseUs = () => {
   const sectionRef = useRef(null)
   const titleRef = useRef(null)
   const itemsRef = useRef(null)
+  const bgElementsRef = useRef(null)
 
   const reasons = [
     {
@@ -46,32 +80,22 @@ const WhyChooseUs = () => {
     if (!sectionRef.current) return
 
     const ctx = gsap.context(() => {
-      if (titleRef.current) {
-        gsap.from(titleRef.current, {
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: 'top 80%',
-            end: 'top 50%',
-            scrub: 1
-          },
-          y: 80,
-          opacity: 0
-        })
-      }
+      whyChooseUsAnimation({
+        title: titleRef.current,
+        items: itemsRef.current
+      })
 
-      if (itemsRef.current) {
-        const items = itemsRef.current.children
-        
-        gsap.from(items, {
-          scrollTrigger: {
-            trigger: itemsRef.current,
-            start: 'top 75%',
-            end: 'top 40%',
-            scrub: 1
-          },
-          x: (index) => index % 2 === 0 ? -100 : 100,
-          opacity: 0,
-          stagger: 0.15
+      // Floating animation for background elements
+      if (bgElementsRef.current) {
+        const elements = bgElementsRef.current.querySelectorAll('.float-element')
+        elements.forEach((el, i) => {
+          gsap.to(el, {
+            y: -45 + i * 18,
+            duration: 6 + i * 0.5,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
+          })
         })
       }
     }, sectionRef)
@@ -80,45 +104,97 @@ const WhyChooseUs = () => {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-20 md:py-32 bg-dark relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
-      
+    <section ref={sectionRef} className="relative py-20 md:py-32 bg-gradient-to-b from-black via-gray-900 to-gray-950 overflow-hidden">
+      {/* Enhanced Background Effects */}
+      <div ref={bgElementsRef} className="absolute inset-0">
+        <div className="float-element absolute top-0 right-0 w-96 h-96 bg-amber-400/8 rounded-full blur-3xl"></div>
+        <div className="float-element absolute bottom-1/3 left-10 w-80 h-80 bg-amber-400/6 rounded-full blur-3xl"></div>
+        <div className="float-element absolute top-1/2 right-1/3 w-72 h-72 bg-amber-400/5 rounded-full blur-3xl"></div>
+        
+        {/* Animated grid background */}
+        <div className="absolute inset-0 opacity-3">
+          <svg width="100%" height="100%" className="absolute inset-0">
+            <defs>
+              <pattern id="grid-whychoose" width="50" height="50" patternUnits="userSpaceOnUse">
+                <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#C9A870" strokeWidth="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid-whychoose)" />
+          </svg>
+        </div>
+      </div>
+
       <div className="container mx-auto px-6 relative z-10">
-        <div ref={titleRef} className="text-center mb-16 md:mb-20">
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl mb-6">
-            Why <span className="text-gradient">Choose Us</span>
+        {/* Title Section */}
+        <div ref={titleRef} className="text-center mb-16 md:mb-24">
+          <h2 className=" font-display text-5xl md:text-6xl lg:text-7xl mb-6">
+            Why{' '}
+            <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 bg-clip-text text-transparent">
+              Choose Us
+            </span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-gold mx-auto mb-6"></div>
-          <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto">
-            Your trusted partner for false ceiling materials
+          <div className="w-32 h-1.5 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 mx-auto mb-8 shadow-lg shadow-amber-400/30"></div>
+          <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto font-light leading-relaxed">
+            Your trusted partner for premium false ceiling materials and exceptional service
           </p>
         </div>
 
-        <div ref={itemsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Reasons Grid */}
+        <div ref={itemsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {reasons.map((reason, index) => (
             <div 
               key={index}
-              className="group relative bg-dark-secondary border border-primary/20 p-8 transition-all duration-500 hover:border-primary hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-2"
+              className="group relative bg-gradient-to-br from-gray-800/40 to-gray-900/40 border border-amber-400/20 p-8 md:p-10 transition-all duration-500 hover:border-amber-400/60 hover:shadow-2xl hover:shadow-amber-400/20 hover:-translate-y-3 rounded-lg backdrop-blur-sm overflow-hidden"
             >
-              <div className="flex items-start space-x-6">
+              {/* Background shine effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-400/0 via-amber-400/5 to-amber-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+              {/* Number Badge */}
+              <div className="absolute -top-8 -right-8 w-24 h-24 bg-gradient-to-br from-amber-400/10 to-amber-400/5 rounded-full group-hover:from-amber-400/20 group-hover:to-amber-400/10 transition-all duration-500"></div>
+
+              <div className="flex items-start space-x-6 relative z-10">
                 <div className="flex-shrink-0">
-                  <div className="text-5xl font-display text-primary/20 group-hover:text-primary/40 transition-colors duration-300">
+                  <div className="text-5xl md:text-6xl font-display bg-gradient-to-br from-amber-400/30 to-amber-400/10 bg-clip-text text-transparent group-hover:from-amber-400/60 group-hover:to-amber-400/30 transition-all duration-300 font-bold">
                     {reason.number}
                   </div>
                 </div>
-                <div>
-                  <h3 className="font-display text-xl text-primary mb-3 group-hover:text-primary-light transition-colors duration-300">
+                <div className="flex-1">
+                  <h3 className="font-display text-xl md:text-2xl text-amber-400 mb-3 group-hover:text-amber-300 transition-colors duration-300">
                     {reason.title}
                   </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
+                  <p className="text-gray-200 text-sm leading-relaxed">
                     {reason.description}
                   </p>
                 </div>
               </div>
 
-              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+              {/* Bottom accent line */}
+              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 via-amber-300 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+
+              {/* Left side accent */}
+              <div className="absolute left-0 top-0 w-1 h-0 bg-gradient-to-b from-amber-400 to-transparent group-hover:h-full transition-all duration-500"></div>
             </div>
           ))}
+        </div>
+
+        {/* Stats Highlight Section */}
+        <div className="mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+          <div className="group relative p-6 md:p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/40 border border-amber-400/20 rounded-lg text-center hover:border-amber-400/40 transition-all duration-300">
+            <div className="text-3xl md:text-4xl font-bold text-amber-400 group-hover:text-amber-300 transition-colors">500+</div>
+            <p className="text-gray-300 text-xs md:text-sm mt-2">Happy Clients</p>
+          </div>
+          <div className="group relative p-6 md:p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/40 border border-amber-400/20 rounded-lg text-center hover:border-amber-400/40 transition-all duration-300">
+            <div className="text-3xl md:text-4xl font-bold text-amber-400 group-hover:text-amber-300 transition-colors">15+</div>
+            <p className="text-gray-300 text-xs md:text-sm mt-2">Years Active</p>
+          </div>
+          <div className="group relative p-6 md:p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/40 border border-amber-400/20 rounded-lg text-center hover:border-amber-400/40 transition-all duration-300">
+            <div className="text-3xl md:text-4xl font-bold text-amber-400 group-hover:text-amber-300 transition-colors">100%</div>
+            <p className="text-gray-300 text-xs md:text-sm mt-2">Quality Assured</p>
+          </div>
+          <div className="group relative p-6 md:p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/40 border border-amber-400/20 rounded-lg text-center hover:border-amber-400/40 transition-all duration-300">
+            <div className="text-3xl md:text-4xl font-bold text-amber-400 group-hover:text-amber-300 transition-colors">24/7</div>
+            <p className="text-gray-300 text-xs md:text-sm mt-2">Support</p>
+          </div>
         </div>
       </div>
     </section>
