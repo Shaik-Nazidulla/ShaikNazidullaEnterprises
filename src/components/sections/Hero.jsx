@@ -174,22 +174,6 @@ const Hero = () => {
             </svg>
           </a>
         </div>
-
-        {/* Stats/Trust Indicators */}
-        <div className="mt-16 md:mt-20 grid grid-cols-3 gap-6 max-w-2xl mx-auto text-center">
-          <div className="group">
-            <div className="text-3xl md:text-4xl font-bold text-amber-400 group-hover:text-amber-300 transition-colors duration-300">500+</div>
-            <p className="text-gray-400 text-sm mt-2">Satisfied Clients</p>
-          </div>
-          <div className="group">
-            <div className="text-3xl md:text-4xl font-bold text-amber-400 group-hover:text-amber-300 transition-colors duration-300">15+</div>
-            <p className="text-gray-400 text-sm mt-2">Years Experience</p>
-          </div>
-          <div className="group">
-            <div className="text-3xl md:text-4xl font-bold text-amber-400 group-hover:text-amber-300 transition-colors duration-300">100%</div>
-            <p className="text-gray-400 text-sm mt-2">Quality Assured</p>
-          </div>
-        </div>
       </div>
 
       {/* Scroll Indicator */}

@@ -128,9 +128,8 @@ const WhyChooseUs = () => {
         {/* Title Section */}
         <div ref={titleRef} className="text-center mb-16 md:mb-24">
           <h2 className=" font-display text-5xl md:text-6xl lg:text-7xl mb-6">
-            Why{' '}
             <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 bg-clip-text text-transparent">
-              Choose Us
+              <span className="text-white">Why</span> Choose Us
             </span>
           </h2>
           <div className="w-32 h-1.5 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 mx-auto mb-8 shadow-lg shadow-amber-400/30"></div>
@@ -175,26 +174,6 @@ const WhyChooseUs = () => {
               <div className="absolute left-0 top-0 w-1 h-0 bg-gradient-to-b from-amber-400 to-transparent group-hover:h-full transition-all duration-500"></div>
             </div>
           ))}
-        </div>
-
-        {/* Stats Highlight Section */}
-        <div className="mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-          <div className="group relative p-6 md:p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/40 border border-amber-400/20 rounded-lg text-center hover:border-amber-400/40 transition-all duration-300">
-            <div className="text-3xl md:text-4xl font-bold text-amber-400 group-hover:text-amber-300 transition-colors">500+</div>
-            <p className="text-gray-300 text-xs md:text-sm mt-2">Happy Clients</p>
-          </div>
-          <div className="group relative p-6 md:p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/40 border border-amber-400/20 rounded-lg text-center hover:border-amber-400/40 transition-all duration-300">
-            <div className="text-3xl md:text-4xl font-bold text-amber-400 group-hover:text-amber-300 transition-colors">15+</div>
-            <p className="text-gray-300 text-xs md:text-sm mt-2">Years Active</p>
-          </div>
-          <div className="group relative p-6 md:p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/40 border border-amber-400/20 rounded-lg text-center hover:border-amber-400/40 transition-all duration-300">
-            <div className="text-3xl md:text-4xl font-bold text-amber-400 group-hover:text-amber-300 transition-colors">100%</div>
-            <p className="text-gray-300 text-xs md:text-sm mt-2">Quality Assured</p>
-          </div>
-          <div className="group relative p-6 md:p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/40 border border-amber-400/20 rounded-lg text-center hover:border-amber-400/40 transition-all duration-300">
-            <div className="text-3xl md:text-4xl font-bold text-amber-400 group-hover:text-amber-300 transition-colors">24/7</div>
-            <p className="text-gray-300 text-xs md:text-sm mt-2">Support</p>
-          </div>
         </div>
       </div>
     </section>

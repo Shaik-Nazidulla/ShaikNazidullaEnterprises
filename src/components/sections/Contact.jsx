@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const contactInfo = {
-  phone: '+91 98765 43210',
+  phone: '+91 81252 31400',
   email: 'info@shaiknazidulla.com',
   address: '123 Business Plaza, City Center, State - 500001',
   workingHours: 'Mon - Sat: 9AM - 6PM',
@@ -93,9 +93,8 @@ const Contact = () => {
         {/* Title Section */}
         <div ref={titleRef} className="text-center mb-16 md:mb-20">
           <h2 className="text-4xl md:text-5xl lg:text-6xl mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
-            Ready to Transform{' '}
             <span className="bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">
-              Your Space?
+              <span className="text-white">Ready to Transform</span> Your Space?
             </span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-amber-400 to-amber-200 mx-auto mb-6"></div>

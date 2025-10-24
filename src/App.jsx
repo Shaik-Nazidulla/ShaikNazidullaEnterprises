@@ -1,3 +1,4 @@
+// nazidullaenterprises/src/App.jsx
 import React, { useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'

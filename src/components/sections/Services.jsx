@@ -116,9 +116,8 @@ const Services = () => {
         {/* Title Section */}
         <div ref={titleRef} className="text-center mb-16 md:mb-24">
           <h2 className="font-display text-5xl md:text-6xl lg:text-7xl mb-6">
-            Our{' '}
             <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 bg-clip-text text-transparent">
-              Services
+              <span className="text-white">Our</span> Services
             </span>
           </h2>
           <div className="w-32 h-1.5 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 mx-auto mb-8 shadow-lg shadow-amber-400/30"></div>

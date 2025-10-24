@@ -117,9 +117,8 @@ const About = () => {
         {/* Title Section */}
         <div ref={titleRef} className="text-center mb-16 md:mb-20">
           <h2 className="font-display text-5xl md:text-6xl lg:text-7xl mb-6">
-            About{' '}
             <span className="bg-gradient-to-r from-amber-300 to-amber-400 bg-clip-text text-transparent">
-              Our Company
+              <span className="text-white">About</span> Our Company
             </span>
           </h2>
           <div className="w-32 h-1.5 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 mx-auto mb-8 shadow-lg shadow-amber-400/30"></div>
@@ -150,34 +149,6 @@ const About = () => {
               </p>
             </div>
           </div>
-        </div>
-
-        {/* Stats Grid */}
-        <div ref={statsRef} className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {stats.map((stat, index) => (
-            <div 
-              key={index}
-              className="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-amber-400/20 p-6 md:p-8 text-center transition-all duration-500 hover:border-amber-400/60 hover:shadow-2xl hover:shadow-amber-400/20 hover:-translate-y-3 backdrop-blur-sm rounded-lg overflow-hidden"
-            >
-              {/* Corner decorations */}
-              <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-amber-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-amber-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-amber-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-amber-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              
-              {/* Background shine effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-400/0 via-amber-400/5 to-amber-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              
-              <div className="relative z-10">
-                <div className="text-4xl md:text-5xl lg:text-6xl font-display bg-gradient-to-r from-amber-300 to-amber-400 bg-clip-text text-transparent mb-3 md:mb-4 font-bold">
-                  {stat.number}
-                </div>
-                <div className="text-gray-300 text-xs md:text-sm tracking-widest uppercase font-semibold">
-                  {stat.label}
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
 
         {/* CTA Section */}

@@ -1,3 +1,4 @@
+// nazidullaenterprises/src/data/products.js
 export const products = [
   {
     id: 1,
@@ -20,7 +21,7 @@ export const products = [
       finish: 'Smooth white surface'
     },
     applications: ['Residential ceilings', 'Office spaces', 'Hotels', 'Hospitals'],
-    image: '/images/products/gypsum-board-1.jpg',
+    image: '/images/products/gypsum-boards.png',
     price: 'Contact for pricing',
     inStock: true
   },
@@ -45,13 +46,13 @@ export const products = [
       finish: 'Glossy and matte options'
     },
     applications: ['Kitchen ceilings', 'Bathroom ceilings', 'Balconies', 'Outdoor areas'],
-    image: '/images/products/pvc-panel-1.jpg',
+    image: '/images/products/PVC-panels.png',
     price: 'Contact for pricing',
     inStock: true
   },
   {
     id: 3,
-    title: 'Metal Profiles & Channels',
+    title: 'Metal Profiles',
     slug: 'metal-profiles',
     description: 'Strong aluminum and steel profiles for robust ceiling framework and support',
     longDescription: 'High-grade metal profiles and channels engineered for maximum strength and durability. Essential components for professional ceiling installations.',
@@ -70,13 +71,13 @@ export const products = [
       finish: 'Galvanized/Powder coated'
     },
     applications: ['Ceiling framework', 'Partition walls', 'Grid systems', 'Support structures'],
-    image: '/images/products/metal-profiles-1.jpg',
+    image: '/images/products/metal-frames.png',
     price: 'Contact for pricing',
     inStock: true
   },
   {
     id: 4,
-    title: 'Accessories & Fasteners',
+    title: 'Accessories',
     slug: 'accessories-screws',
     description: 'Complete range of installation accessories, screws, and fasteners for perfect finish',
     longDescription: 'Comprehensive collection of premium quality accessories including screws, anchors, joint tapes, and corner beads for professional ceiling installations.',
@@ -95,7 +96,7 @@ export const products = [
       finish: 'Zinc-coated'
     },
     applications: ['Ceiling installation', 'Wall mounting', 'Finishing work', 'Repairs'],
-    image: '/images/products/screws-accessories.jpg',
+    image: '/images/products/accessories.png',
     price: 'Contact for pricing',
     inStock: true
   }
