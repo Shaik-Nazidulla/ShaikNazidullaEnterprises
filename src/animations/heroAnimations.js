@@ -1,4 +1,7 @@
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export const heroEntranceAnimation = (elements) => {
   const { title, subtitle, cta, indicator } = elements
@@ -45,7 +48,8 @@ export const heroEntranceAnimation = (elements) => {
   return tl
 }
 
-export const heroParallax = (heroElement) => {
+// OPTION 1: Blur & Blur-out effect
+export const heroParallaxBlur = (heroElement) => {
   return gsap.to(heroElement, {
     scrollTrigger: {
       trigger: heroElement,
@@ -53,8 +57,8 @@ export const heroParallax = (heroElement) => {
       end: 'bottom top',
       scrub: 1.5
     },
-    opacity: 0,
-    scale: 0.9,
-    y: -100
+    filter: 'blur(20px)',
+    opacity: 0.3,
+    y: -80
   })
 }

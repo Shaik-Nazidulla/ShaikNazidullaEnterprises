@@ -1,3 +1,4 @@
+// nazidullaenterprises/src/components/sections/Hero.jsx
 import React, { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -49,19 +50,7 @@ const heroEntranceAnimation = (elements) => {
   return tl
 }
 
-const heroParallax = (heroElement) => {
-  return gsap.to(heroElement, {
-    scrollTrigger: {
-      trigger: heroElement,
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1.5
-    },
-    opacity: 0,
-    scale: 0.9,
-    y: -100
-  })
-}
+
 
 const Hero = () => {
   const heroRef = useRef(null)
@@ -82,7 +71,6 @@ const Hero = () => {
         indicator: scrollIndicatorRef.current
       })
 
-      heroParallax(heroRef.current)
 
       if (scrollIndicatorRef.current) {
         gsap.to(scrollIndicatorRef.current, {
@@ -119,7 +107,7 @@ const Hero = () => {
     <section 
       id="home"
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-950 via-gray-900 to-black"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-950 via-gray-900 to-black py-20"
     >
       {/* Enhanced Background Effects */}
       <div ref={bgElementsRef} className="absolute inset-0 overflow-hidden">
