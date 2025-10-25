@@ -10,7 +10,7 @@ const contactInfo = {
   address: '123 Business Plaza, City Center, State - 500001',
   workingHours: 'Mon - Sat: 9AM - 6PM',
   social: {
-    whatsapp: 'https://wa.me/919876543210',
+    whatsapp: 'https://wa.me/918125231400',
     facebook: '#',
     instagram: '#',
     linkedin: '#'
