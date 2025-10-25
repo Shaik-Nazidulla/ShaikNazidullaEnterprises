@@ -1,62 +1,17 @@
 // nazidullaenterprises/src/components/sections/Products.jsx
 import React, { useRef, useEffect } from 'react'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ProductCard from '../product/ProductCard'
 import { products } from '../../data/products'
 
-gsap.registerPlugin(ScrollTrigger)
-
-const productSectionAnimation = (elements) => {
-  const { title, grid } = elements
-
-  if (title) {
-    gsap.from(title, {
-      scrollTrigger: {
-        trigger: title,
-        start: 'top 80%',
-        end: 'top 50%',
-        scrub: 1
-      },
-      y: 80,
-      opacity: 0
-    })
-  }
-
-  if (grid) {
-    const cards = grid.children
-    
-    gsap.from(cards, {
-      scrollTrigger: {
-        trigger: grid,
-        start: 'top 80%',
-        end: 'top 35%',
-        scrub: 1.2
-      },
-      y: 100,
-      opacity: 0,
-      stagger: 0.15,
-      rotationX: -15,
-      transformOrigin: 'top center'
-    })
-  }
-}
-
 const Products = () => {
   const sectionRef = useRef(null)
-  const titleRef = useRef(null)
-  const gridRef = useRef(null)
   const bgElementsRef = useRef(null)
 
   useEffect(() => {
     if (!sectionRef.current) return
 
     const ctx = gsap.context(() => {
-      productSectionAnimation({
-        title: titleRef.current,
-        grid: gridRef.current
-      })
-
       // Floating animation for background elements
       if (bgElementsRef.current) {
         const elements = bgElementsRef.current.querySelectorAll('.float-element')
@@ -98,7 +53,7 @@ const Products = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Title Section */}
-        <div ref={titleRef} className="text-center mb-16 md:mb-24">
+        <div className="text-center mb-16 md:mb-24">
           <h2 className="font-display text-5xl md:text-6xl lg:text-7xl mb-6">
             <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 bg-clip-text text-transparent">
               <span className="text-white">Our</span> Premium Products
@@ -111,7 +66,7 @@ const Products = () => {
         </div>
 
         {/* Products Grid */}
-        <div ref={gridRef} className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

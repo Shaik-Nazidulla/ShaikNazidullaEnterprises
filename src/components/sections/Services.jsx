@@ -1,60 +1,15 @@
 import React, { useRef, useEffect } from 'react'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { services } from '../../data/services'
-
-gsap.registerPlugin(ScrollTrigger)
-
-const serviceSectionAnimation = (elements) => {
-  const { title, cards } = elements
-
-  if (title) {
-    gsap.from(title, {
-      scrollTrigger: {
-        trigger: title,
-        start: 'top 80%',
-        end: 'top 50%',
-        scrub: 1
-      },
-      y: 80,
-      opacity: 0
-    })
-  }
-
-  if (cards) {
-    const cardElements = cards.children
-    
-    gsap.from(cardElements, {
-      scrollTrigger: {
-        trigger: cards,
-        start: 'top 75%',
-        end: 'top 30%',
-        scrub: 1.2
-      },
-      y: 120,
-      opacity: 0,
-      rotationY: 45,
-      stagger: 0.12,
-      transformOrigin: 'center center'
-    })
-  }
-}
 
 const Services = () => {
   const sectionRef = useRef(null)
-  const titleRef = useRef(null)
-  const cardsRef = useRef(null)
   const bgElementsRef = useRef(null)
 
   useEffect(() => {
     if (!sectionRef.current) return
 
     const ctx = gsap.context(() => {
-      serviceSectionAnimation({
-        title: titleRef.current,
-        cards: cardsRef.current
-      })
-
       // Floating animation for background elements
       if (bgElementsRef.current) {
         const elements = bgElementsRef.current.querySelectorAll('.float-element')
@@ -114,7 +69,7 @@ const Services = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Title Section */}
-        <div ref={titleRef} className="text-center mb-16 md:mb-24">
+        <div className="text-center mb-16 md:mb-24">
           <h2 className="font-display text-5xl md:text-6xl lg:text-7xl mb-6">
             <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 bg-clip-text text-transparent">
               <span className="text-white">Our</span> Services
@@ -127,7 +82,7 @@ const Services = () => {
         </div>
 
         {/* Services Grid */}
-        <div ref={cardsRef} className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
           {services.map((service) => (
             <div 
               key={service.id}

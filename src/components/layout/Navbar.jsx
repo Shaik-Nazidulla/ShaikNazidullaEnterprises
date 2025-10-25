@@ -6,27 +6,9 @@ import { NAV_LINKS } from '../../utils/constants'
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
-const navbarEntranceAnimation = (navElement) => {
-  if (!navElement) return
-  
-  const ctx = gsap.context(() => {
-    gsap.from(navElement, {
-      y: -100,
-      opacity: 0,
-      duration: 1,
-      ease: 'power3.out',
-      delay: 0.2,
-      clearProps: 'transform'
-    })
-  }, navElement)
-
-  return ctx
-}
-
 const setupNavbarScrollAnimation = (navElement) => {
   if (!navElement) return null
 
-  let lastScroll = 0
   const showAnim = gsap.from(navElement, {
     yPercent: -100,
     paused: true,
@@ -34,7 +16,7 @@ const setupNavbarScrollAnimation = (navElement) => {
     ease: 'power2.out'
   }).progress(1)
 
-  return { showAnim, lastScroll: { current: 0 } }
+  return { showAnim }
 }
 
 const Navbar = () => {
@@ -48,9 +30,6 @@ const Navbar = () => {
   useEffect(() => {
     const nav = navRef.current
     if (!nav) return
-
-    // Initial animation
-    const entranceCtx = navbarEntranceAnimation(nav)
 
     // Navbar hide/show on scroll
     const animSetup = setupNavbarScrollAnimation(nav)
@@ -104,7 +83,6 @@ const Navbar = () => {
 
     return () => {
       clearTimeout(timer)
-      if (entranceCtx) entranceCtx.revert()
       if (scrollTriggerRef.current) scrollTriggerRef.current.kill()
       ScrollTrigger.getAll().forEach(trigger => trigger.kill())
     }

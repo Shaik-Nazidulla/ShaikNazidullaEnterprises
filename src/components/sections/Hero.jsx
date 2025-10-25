@@ -107,7 +107,7 @@ const Hero = () => {
     <section 
       id="home"
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-950 via-gray-900 to-black py-20"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-950 via-gray-900 to-black py-15"
     >
       {/* Enhanced Background Effects */}
       <div ref={bgElementsRef} className="absolute inset-0 overflow-hidden">

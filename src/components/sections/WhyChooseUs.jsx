@@ -1,46 +1,8 @@
 import React, { useRef, useEffect } from 'react'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
-
-const whyChooseUsAnimation = (elements) => {
-  const { title, items } = elements
-
-  if (title) {
-    gsap.from(title, {
-      scrollTrigger: {
-        trigger: title,
-        start: 'top 80%',
-        end: 'top 50%',
-        scrub: 1
-      },
-      y: 80,
-      opacity: 0
-    })
-  }
-
-  if (items) {
-    const itemElements = items.children
-    
-    gsap.from(itemElements, {
-      scrollTrigger: {
-        trigger: items,
-        start: 'top 75%',
-        end: 'top 35%',
-        scrub: 1.2
-      },
-      x: (index) => index % 2 === 0 ? -100 : 100,
-      opacity: 0,
-      stagger: 0.12
-    })
-  }
-}
 
 const WhyChooseUs = () => {
   const sectionRef = useRef(null)
-  const titleRef = useRef(null)
-  const itemsRef = useRef(null)
   const bgElementsRef = useRef(null)
 
   const reasons = [
@@ -80,11 +42,6 @@ const WhyChooseUs = () => {
     if (!sectionRef.current) return
 
     const ctx = gsap.context(() => {
-      whyChooseUsAnimation({
-        title: titleRef.current,
-        items: itemsRef.current
-      })
-
       // Floating animation for background elements
       if (bgElementsRef.current) {
         const elements = bgElementsRef.current.querySelectorAll('.float-element')
@@ -126,7 +83,7 @@ const WhyChooseUs = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Title Section */}
-        <div ref={titleRef} className="text-center mb-16 md:mb-24">
+        <div className="text-center mb-16 md:mb-24">
           <h2 className=" font-display text-5xl md:text-6xl lg:text-7xl mb-6">
             <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 bg-clip-text text-transparent">
               <span className="text-white">Why</span> Choose Us
@@ -139,7 +96,7 @@ const WhyChooseUs = () => {
         </div>
 
         {/* Reasons Grid */}
-        <div ref={itemsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {reasons.map((reason, index) => (
             <div 
               key={index}
