@@ -5,7 +5,6 @@ export const services = [
     description: 'Professional guidance on material selection, quantity estimation, and ceiling design recommendations',
     icon: 'consultation',
     features: [
-      'Free site assessment',
       'Material recommendation',
       'Quantity calculation',
       'Design suggestions',
@@ -20,7 +19,6 @@ export const services = [
     features: [
       'Same-day dispatch',
       'Secure packaging',
-      'Track your order',
       'Bulk delivery available',
       'Timely delivery'
     ]
@@ -35,7 +33,6 @@ export const services = [
       'Quality testing',
       'Genuine products',
       'Warranty support',
-      'After-sales service'
     ]
   },
   {

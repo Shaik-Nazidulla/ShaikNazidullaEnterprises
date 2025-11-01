@@ -1,3 +1,4 @@
+// nazidullaenterprises/src/components/layout/Footer.jsx
 import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -6,8 +7,8 @@ gsap.registerPlugin(ScrollTrigger)
 
 const contactInfo = {
   phone: '+91 81252 31400',
-  email: 'info@shaiknazidulla.com',
-  workingHours: 'Mon - Sun: 8AM - 7PM',
+  email: 'nazidullashaik@gmail.com',
+  workingHours: 'Mon - Sun: 7AM - 7PM (IST)' ,
   social: {
     instagram: '#',
   }
@@ -80,7 +81,7 @@ const Footer = () => {
           <div>
             <h3 className="text-amber-400 text-lg mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>Products</h3>
             <ul className="space-y-3">
-              {['Gypsum Boards', 'PVC Panels', 'Metal Profiles', 'Accessories', 'Screws & Fasteners'].map((product, index) => (
+              {['Gypsum Boards', 'PVC Panels', 'Metal Profiles', 'Accessories'].map((product, index) => (
                 <li key={index}>
                   <a 
                     href="#products" 

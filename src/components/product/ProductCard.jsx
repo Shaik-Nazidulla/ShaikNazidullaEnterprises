@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const ProductCard = ({ product, onImageLoad }) => {
   const [imageError, setImageError] = useState(false)
@@ -15,6 +15,49 @@ const ProductCard = ({ product, onImageLoad }) => {
     if (onImageLoad) onImageLoad()
   }
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (showDetails) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [showDetails])
+
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && showDetails) {
+        setShowDetails(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
+  }, [showDetails])
+
+  const handleContactClick = (e) => {
+    e.preventDefault()
+    setShowDetails(false)
+    // Small delay to allow modal to close before scrolling
+    setTimeout(() => {
+      const contactSection = document.querySelector('#contact')
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' })
+      }
+    }, 300)
+  }
+
+  const handleCallClick = (e) => {
+    e.preventDefault()
+    // Phone number will trigger directly on mobile, on desktop it shows as clickable
+    window.location.href = 'tel:+919705883384'
+  }
+
   return (
     <>
       <div className="group relative bg-gradient-to-br from-gray-900 to-gray-950 border border-amber-400/20 rounded-lg overflow-hidden transition-all duration-500 hover:border-amber-400/60 hover:shadow-2xl hover:shadow-amber-400/20 hover:-translate-y-2">
@@ -29,7 +72,7 @@ const ProductCard = ({ product, onImageLoad }) => {
               }`}
               onLoad={handleImageLoad}
               onError={handleImageError}
-              loading="eager"
+              loading="lazy"
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-950">
@@ -44,17 +87,11 @@ const ProductCard = ({ product, onImageLoad }) => {
           {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/60 to-transparent opacity-80"></div>
           
-          {/* Badge */}
-          {product.inStock && (
-            <div className="absolute top-4 right-4 bg-amber-400 text-gray-950 text-xs font-bold px-3 py-1.5 tracking-wider shadow-lg">
-              IN STOCK
-            </div>
-          )}
 
           {/* Quick View Button */}
           <button
             onClick={() => setShowDetails(true)}
-            className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-amber-400 text-gray-950 px-6 py-2 font-bold text-sm opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 hover:bg-amber-300 shadow-lg"
+            className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-amber-400 text-gray-950 px-6 py-2 font-bold text-sm opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 hover:bg-amber-300 shadow-lg cursor-pointer"
           >
             QUICK VIEW
           </button>
@@ -87,7 +124,7 @@ const ProductCard = ({ product, onImageLoad }) => {
             <span className="text-amber-400 font-semibold text-sm">{product.price}</span>
             <button 
               onClick={() => setShowDetails(true)}
-              className="text-amber-400 hover:text-amber-300 text-sm font-medium flex items-center gap-2 group/btn transition-colors duration-300"
+              className="text-amber-400 hover:text-amber-300 text-sm font-medium flex items-center gap-2 group/btn transition-colors duration-300 cursor-pointer"
             >
               View Details
               <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -101,19 +138,24 @@ const ProductCard = ({ product, onImageLoad }) => {
       {/* Product Details Modal */}
       {showDetails && (
         <div 
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn overflow-y-auto"
           onClick={() => setShowDetails(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="product-modal-title"
         >
           <div 
-            className="bg-gradient-to-br from-gray-900 to-gray-950 border border-amber-400/30 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-gradient-to-br from-gray-900 to-gray-950 border border-amber-400/30 rounded-lg max-w-4xl w-full my-8"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Header */}
+            {/* Modal Header - Sticky */}
             <div className="sticky top-0 bg-gray-950/95 backdrop-blur-sm border-b border-amber-400/20 p-6 flex items-center justify-between z-10">
-              <h2 className="font-display text-3xl text-amber-400">{product.title}</h2>
+              <h2 id="product-modal-title" className="font-display text-3xl text-amber-400">{product.title}</h2>
               <button
                 onClick={() => setShowDetails(false)}
-                className="text-gray-400 hover:text-amber-400 transition-colors"
+                className="text-gray-400 hover:text-amber-400 transition-colors p-2 hover:bg-gray-900 rounded-lg cursor-pointer"
+                aria-label="Close modal"
+                type="button"
               >
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -121,11 +163,11 @@ const ProductCard = ({ product, onImageLoad }) => {
               </button>
             </div>
 
-            {/* Modal Content */}
-            <div className="p-6 md:p-8">
+            {/* Modal Content - Scrollable */}
+            <div className="p-6 md:p-8 max-h-[calc(90vh-120px)] overflow-y-auto">
               <div className="grid md:grid-cols-2 gap-8 mb-8">
                 {/* Image */}
-                <div className="relative h-80 bg-gray-950 rounded-lg overflow-hidden">
+                <div className="relative h-80 bg-gray-950 rounded-lg overflow-hidden flex-shrink-0">
                   {!imageError && product.image ? (
                     <img 
                       src={product.image}
@@ -142,12 +184,12 @@ const ProductCard = ({ product, onImageLoad }) => {
                 </div>
 
                 {/* Quick Info */}
-                <div>
+                <div className="flex flex-col">
                   <h3 className="text-xl font-bold text-amber-400 mb-4">Product Overview</h3>
-                  <p className="text-gray-300 leading-relaxed mb-6">{product.longDescription}</p>
+                  <p className="text-gray-300 leading-relaxed mb-6 flex-grow">{product.longDescription}</p>
                   
                   {product.inStock && (
-                    <div className="inline-flex items-center gap-2 bg-amber-400/10 border border-amber-400/30 px-4 py-2 rounded mb-6">
+                    <div className="inline-flex items-center gap-2 bg-amber-400/10 border border-amber-400/30 px-4 py-2 rounded mb-6 w-fit">
                       <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
                       <span className="text-amber-400 font-semibold text-sm">Available in Stock</span>
                     </div>
@@ -208,21 +250,22 @@ const ProductCard = ({ product, onImageLoad }) => {
                 </div>
               </div>
 
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href="#contact"
-                  onClick={() => setShowDetails(false)}
-                  className="flex-1 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 text-gray-950 font-bold px-8 py-4 text-center transition-all duration-300 shadow-lg shadow-amber-400/30 hover:shadow-amber-400/50 rounded-lg"
+              {/* CTA Buttons - Sticky Footer */}
+              <div className="flex flex-col sm:flex-row gap-4 mt-8 pt-6 border-t border-amber-400/20">
+                <button
+                  onClick={handleContactClick}
+                  className="flex-1 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 text-gray-950 font-bold px-8 py-4 text-center transition-all duration-300 shadow-lg shadow-amber-400/30 hover:shadow-amber-400/50 rounded-lg cursor-pointer"
+                  type="button"
                 >
                   REQUEST QUOTE
-                </a>
-                <a
-                  href="tel:+919705883384"
-                  className="flex-1 bg-gray-950 hover:bg-gray-900 border-2 border-amber-400/30 hover:border-amber-400 text-amber-400 font-bold px-8 py-4 text-center transition-all duration-300 rounded-lg"
+                </button>
+                <button
+                  onClick={handleCallClick}
+                  className="flex-1 bg-gray-950 hover:bg-gray-900 border-2 border-amber-400/30 hover:border-amber-400 text-amber-400 font-bold px-8 py-4 text-center transition-all duration-300 rounded-lg cursor-pointer"
+                  type="button"
                 >
                   CALL NOW
-                </a>
+                </button>
               </div>
             </div>
           </div>

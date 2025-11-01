@@ -206,22 +206,6 @@ const Gallery = () => {
             </div>
           ))}
         </div>
-
-        {/* View All CTA */}
-        <div className="mt-16 md:mt-20 text-center">
-          <p className="text-gray-400 text-base md:text-lg mb-6">
-            Ready to see your project come to life?
-          </p>
-          <a 
-            href="#contact"
-            className="group inline-flex items-center justify-center bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 text-gray-950 font-bold px-10 py-5 transition-all duration-500 overflow-hidden shadow-lg shadow-amber-400/30 hover:shadow-amber-400/50 rounded-lg"
-          >
-            <span className="tracking-wider">VIEW MORE PROJECTS</span>
-            <svg className="w-5 h-5 ml-3 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-        </div>
       </div>
     </section>
   )

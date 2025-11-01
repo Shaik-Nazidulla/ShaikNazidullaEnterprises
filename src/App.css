@@ -1,3 +1,64 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;800&display=swap');
 @import "tailwindcss";
 
+/* ==================== SCROLLBAR STYLING ==================== */
+
+/* Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+  border-radius: 10px;
+  border: 2px solid #000000;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+  box-shadow: 0 0 12px rgba(217, 119, 6, 0.4);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%);
+}
+
+::-webkit-scrollbar-corner {
+  background: #000000;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d97706 #000000;
+}
+
+*:hover {
+  scrollbar-color: #f59e0b #000000;
+}
+
+/* ==================== SMOOTH SCROLL BEHAVIOR ==================== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ==================== CUSTOM SCROLLBAR FOR MODALS ==================== */
+.max-h-\[calc\(90vh-120px\)\]::-webkit-scrollbar {
+  width: 8px;
+}
+
+.max-h-\[calc\(90vh-120px\)\]::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+  border-radius: 4px;
+}
+
+.max-h-\[calc\(90vh-120px\)\]::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+}

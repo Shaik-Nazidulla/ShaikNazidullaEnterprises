@@ -15,8 +15,8 @@ export const products = [
       'Eco-friendly material'
     ],
     specifications: {
-      thickness: '9mm, 12mm, 15mm',
-      size: '8ft x 4ft, 10ft x 4ft',
+      thickness: '12.5mm',
+      size: '6ft x 4ft',
       weight: 'Lightweight',
       finish: 'Smooth white surface'
     },
@@ -40,7 +40,7 @@ export const products = [
       'Cost-effective solution'
     ],
     specifications: {
-      thickness: '7mm, 8mm, 9mm',
+      thickness: '8mm, 9mm',
       size: '10ft x 1ft, 12ft x 1ft',
       weight: 'Ultra-lightweight',
       finish: 'Glossy and matte options'
