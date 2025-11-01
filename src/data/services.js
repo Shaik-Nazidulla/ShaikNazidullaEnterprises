@@ -44,8 +44,7 @@ export const services = [
       'Installation guidance',
       'Troubleshooting help',
       '24/7 phone support',
-      'Expert advice',
-      'Training sessions'
+      'Expert advice'
     ]
   }
 ]

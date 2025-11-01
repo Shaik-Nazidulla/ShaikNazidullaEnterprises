@@ -1,4 +1,3 @@
-// nazidullaenterprises/src/App.jsx
 import React, { useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -6,6 +5,7 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 
 // Import all components directly (no lazy loading)
 import ErrorBoundary from './components/ui/ErrorBoundary'
+import { OverlayProvider } from './context/OverlayContext'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import ScrollToTop from './components/layout/ScrollToTop'
@@ -51,20 +51,22 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <div className="relative bg-dark overflow-hidden">
-        <Navbar />
-        <main>
-          <Hero />
-          <About />
-          <Products />
-          <Services />
-          <WhyChooseUs />
-          <Gallery />
-          <Contact />
-        </main>
-        <Footer />
-        <ScrollToTop />
-      </div>
+      <OverlayProvider>
+        <div className="relative bg-dark overflow-hidden">
+          <Navbar />
+          <main>
+            <Hero />
+            <About />
+            <Products />
+            <Services />
+            <WhyChooseUs />
+            <Gallery />
+            <Contact />
+          </main>
+          <Footer />
+          <ScrollToTop />
+        </div>
+      </OverlayProvider>
     </ErrorBoundary>
   )
 }

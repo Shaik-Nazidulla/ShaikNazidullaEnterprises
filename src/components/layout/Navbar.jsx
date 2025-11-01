@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { NAV_LINKS } from '../../utils/constants'
+import { useOverlay } from '../../context/OverlayContext'
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
@@ -28,6 +29,7 @@ const Navbar = () => {
   const lastScrollRef = useRef(0)
   const scrollTriggerRef = useRef(null)
   const scrollTimeoutRef = useRef(null)
+  const { isOverlayOpen } = useOverlay()
 
   useEffect(() => {
     const nav = navRef.current
@@ -187,13 +189,15 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Navbar */}
+      {/* Navbar - Hidden when overlay is open */}
       <nav 
         ref={navRef}
         className={`fixed top-0 left-0 w-full z-[1000] transition-all duration-500 ${
           isScrolled 
             ? 'bg-gradient-to-b from-gray-900/98 to-gray-900/85 backdrop-blur-xl py-3 shadow-lg shadow-amber-500/10 border-b border-amber-400/10' 
             : 'bg-gradient-to-b from-black/50 to-transparent py-5'
+        } ${
+          isOverlayOpen ? 'opacity-0 pointer-events-none -translate-y-full' : 'opacity-100 translate-y-0'
         }`}
         style={{
           paddingTop: `calc(max(1.25rem, env(safe-area-inset-top)))`,
