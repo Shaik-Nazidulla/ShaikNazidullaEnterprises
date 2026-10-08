@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const contactInfo = {
-  phone: '+91 81252 31400',
+  phone: '+91 9182798386',
   email: 'nazidullashaik@gmail.com',
   workingHours: 'Mon - Sun: 7AM - 7PM (IST)' ,
   social: {
