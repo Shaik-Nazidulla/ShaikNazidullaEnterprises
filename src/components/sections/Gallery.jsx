@@ -431,21 +431,6 @@ const Gallery = () => {
               </svg>
             </div>
           )}
-
-          {/* Keyboard Hints - Desktop Only */}
-          {!isMobile && (
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4 text-gray-400 text-xs">
-              <span className="flex items-center gap-1">
-                <kbd className="px-2 py-1 bg-gray-800 rounded">ESC</kbd> Close
-              </span>
-              <span className="flex items-center gap-1">
-                <kbd className="px-2 py-1 bg-gray-800 rounded">←</kbd> Previous
-              </span>
-              <span className="flex items-center gap-1">
-                <kbd className="px-2 py-1 bg-gray-800 rounded">→</kbd> Next
-              </span>
-            </div>
-          )}
         </div>
       )}
     </section>
